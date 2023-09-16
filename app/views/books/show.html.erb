@@ -9,34 +9,45 @@
     <div class='col-md-8 offset-md-1'>
   		<h2>Book detail</h2>
   		<table class='table'>
-  		  <tr>
-          <td><%= link_to(@book.user) do %>
-            <%= image_tag @book.user.get_profile_image, size:"100x100" %><br>
-            <%= @book.user.name %>
-            <% end %>
-          </td>
-          <td><%= link_to @book.title, @book %></td>
-          <td><%= @book.body %></td>
-          <td class=<%= "favorite-" + @book.id.to_s %> >
-            <%= render "favorites/btn", book: @book %>
-          </td>
-          <td class="book-comments-counter">
-            <%= render "book_comments/counter", book: @book %>
-          </td>
-          <td>閲覧数: <%= @book.read_counts.count %></td>
-          <% if @book.user == current_user %>
-            <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success edit_book_#{@book.id}" %></td>
-            <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@book.id}" %></td>
-          <% end %>
+  		  <thead>
+  		    <tr class="align-middle text-center">
+  		      <th></th>
+            <th>Title</th>
+            <th>Opinion</th>
+            <th colspan="4"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="align-middle text-center">
+            <td><%= link_to(@book.user) do %>
+              <%= image_tag @book.user.get_profile_image, size:"60x60" %><br>
+              <%= @book.user.name %>
+              <% end %>
+            </td>
+            <td><%= link_to @book.title, @book %></td>
+            <td><%= @book.body %></td>
+            <td class=<%= "favorite-" + @book.id.to_s %> >
+              <%= render "favorites/btn", book: @book %>
+            </td>
+            <td><%= render "static_rate", book: @book %></td>
         </tr>
+        </tbody>
       </table>
+      
+      <div class="mb-5">
+        <% if @book.user == current_user %>
+          <%= link_to 'Edit', edit_book_path(@book), class: "mx-2 btn btn-sm btn-success edit_book_#{@book.id}" %>
+          <%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "mx-2 btn btn-sm btn-danger destroy_book_#{@book.id}" %>
+        <% end %>
+      </div>
       
       <div class="book-comments-index">
         <%= render "book_comments/index", book: @book %>
       </div>
-      
-      <%= render "book_comments/form", book: @book, book_comment: @book_comment %>
-      
+      <div>
+        <%= render "book_comments/counter", book: @book %>
+        <%= render "book_comments/form", book: @book, book_comment: @book_comment %>
+      </div>
     </div>
   </div>
 </div>
