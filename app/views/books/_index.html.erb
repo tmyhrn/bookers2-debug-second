@@ -23,6 +23,11 @@
         </td>
         <td><%= render "books/static_rate", book: book %></td>
         <td>閲覧数：<%= book.read_counts.count %></td>
+        <td>
+　　<% if @book.category.present? %>
+　　　　<%=link_to@book.category,tagsearches_search_path(content:@book.category)%>
+　　<% end %>
+</td>
       </tr>
     <% end %>
   </tbody>
