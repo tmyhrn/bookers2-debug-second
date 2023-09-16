@@ -10,6 +10,9 @@
       <h2>Books</h2>
       <%= render 'searches/search' %>
       <%= render 'layouts/errors', obj: @book %>
+      <%= link_to "新しい順", books_path(sort: 'created_at DESC') %>
+      | <%= link_to "古い順", books_path(sort: 'created_at ASC') %>
+      | <%= link_to "評価の高い順", books_path(sort: 'star DESC') %>
       <%= render 'index', books: @books%>
     </div>
   </div>
